@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemadesigner version="6.5">
+<source>
+<database charset="latin1" collation="latin1_swedish_ci">adiwraksa</database>
+</source>
+<canvas zoom="75">
+<tables>
+<table name="bom" view="colnames">
+<left>15</left>
+<top>23</top>
+<width>83</width>
+<height>135</height>
+<sql_create_table>CREATE TABLE `bom` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `bom_no` varchar(25) DEFAULT NULL,
+  `tgl_input` date DEFAULT NULL,
+  `keterangan` varchar(250) DEFAULT NULL,
+  `item_id` int(11) DEFAULT NULL,
+  `qty` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `item_id` (`item_id`),
+  CONSTRAINT `bom_ibfk_1` FOREIGN KEY (`item_id`) REFERENCES `item` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+<table name="bom_detail" view="colnames">
+<left>121</left>
+<top>155</top>
+<width>92</width>
+<height>161</height>
+<sql_create_table>CREATE TABLE `bom_detail` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_bom` int(11) DEFAULT NULL,
+  `item_id` int(11) DEFAULT NULL,
+  `keterangan` varchar(250) DEFAULT NULL,
+  `jumlah` decimal(20,2) DEFAULT NULL,
+  `unit` varchar(25) DEFAULT NULL,
+  `standart_cost` decimal(20,2) DEFAULT NULL,
+  `total_biaya` decimal(20,2) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_bom` (`id_bom`),
+  KEY `item_id` (`item_id`),
+  CONSTRAINT `bom_detail_ibfk_1` FOREIGN KEY (`id_bom`) REFERENCES `bom` (`id`),
+  CONSTRAINT `bom_detail_ibfk_2` FOREIGN KEY (`item_id`) REFERENCES `item` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+<table name="bom_pekerjaan" view="colnames">
+<left>183</left>
+<top>0</top>
+<width>98</width>
+<height>135</height>
+<sql_create_table>CREATE TABLE `bom_pekerjaan` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_bom` int(11) DEFAULT NULL,
+  `id_pekerjaan` int(11) DEFAULT NULL,
+  `jumlah` decimal(20,2) DEFAULT NULL,
+  `biaya_standart` decimal(20,2) DEFAULT NULL,
+  `total_biaya` decimal(20,2) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_pekerjaan` (`id_pekerjaan`),
+  KEY `id_bom` (`id_bom`),
+  CONSTRAINT `bom_pekerjaan_ibfk_1` FOREIGN KEY (`id_pekerjaan`) REFERENCES `pekerjaan` (`id`),
+  CONSTRAINT `bom_pekerjaan_ibfk_2` FOREIGN KEY (`id_bom`) REFERENCES `bom` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+<table name="category" view="colnames">
+<left>593</left>
+<top>236</top>
+<width>59</width>
+<height>84</height>
+<sql_create_table>CREATE TABLE `category` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(250) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+<table name="divisi" view="colnames">
+<left>683</left>
+<top>20</top>
+<width>111</width>
+<height>110</height>
+<sql_create_table>CREATE TABLE `divisi` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `divno` varchar(50) DEFAULT NULL,
+  `name` varchar(200) DEFAULT NULL,
+  `pic` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+<table name="item" view="colnames">
+<left>410</left>
+<top>90</top>
+<width>140</width>
+<height>233</height>
+<sql_create_table>CREATE TABLE `item` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `itemno` varchar(20) DEFAULT NULL,
+  `description` varchar(250) DEFAULT NULL,
+  `item_type` int(11) DEFAULT NULL,
+  `item_category` int(11) DEFAULT NULL,
+  `stok` decimal(20,2) DEFAULT NULL,
+  `unit_price` decimal(20,2) DEFAULT NULL,
+  `discount` decimal(20,2) DEFAULT NULL,
+  `on_sales` decimal(20,2) DEFAULT NULL,
+  `on_order` decimal(20,2) DEFAULT NULL,
+  `cost` decimal(20,2) DEFAULT NULL,
+  `inventory_gl_accnt` varchar(20) DEFAULT NULL,
+  `cogs_accnt` varchar(20) DEFAULT NULL,
+  `purchase_ret_gl_accnt` varchar(20) DEFAULT NULL,
+  `sales_accnt` varchar(20) DEFAULT NULL,
+  `sales_ret_gl_accnt` varchar(20) DEFAULT NULL,
+  `cost_methode` varchar(25) DEFAULT 'FIFO',
+  `sales_discount_accnt` varchar(25) DEFAULT NULL,
+  `goods_transaction_accnt` varchar(25) DEFAULT NULL,
+  `unbilled_accnt` varchar(25) DEFAULT NULL,
+  `weight` decimal(20,2) DEFAULT NULL,
+  `dim_height` decimal(20,2) DEFAULT NULL,
+  `dim_width` decimal(20,2) DEFAULT NULL,
+  `dim_depth` decimal(20,2) DEFAULT NULL,
+  `inventory_group` int(11) DEFAULT NULL,
+  `img` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `item_category` (`item_category`),
+  CONSTRAINT `item_ibfk_1` FOREIGN KEY (`item_category`) REFERENCES `category` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+<table name="karyawan" view="colnames">
+<left>825</left>
+<top>9</top>
+<width>92</width>
+<height>135</height>
+<sql_create_table>CREATE TABLE `karyawan` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_divisi` int(11) DEFAULT NULL,
+  `karyawan_no` varchar(25) DEFAULT NULL,
+  `nama` varchar(250) DEFAULT NULL,
+  `alamat` varchar(250) DEFAULT NULL,
+  `telpon` varchar(16) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_divisi` (`id_divisi`),
+  CONSTRAINT `karyawan_ibfk_1` FOREIGN KEY (`id_divisi`) REFERENCES `divisi` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+<table name="pekerjaan" view="colnames">
+<left>564</left>
+<top>33</top>
+<width>73</width>
+<height>97</height>
+<sql_create_table>CREATE TABLE `pekerjaan` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_divisi` int(11) DEFAULT NULL,
+  `deskripsi` varchar(250) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_divisi` (`id_divisi`),
+  CONSTRAINT `pekerjaan_ibfk_1` FOREIGN KEY (`id_divisi`) REFERENCES `divisi` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+<table name="user_login" view="colnames">
+<left>831</left>
+<top>216</top>
+<width>133</width>
+<height>122</height>
+<sql_create_table>CREATE TABLE `user_login` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_name` varchar(50) DEFAULT NULL,
+  `full_name` varchar(50) DEFAULT NULL,
+  `user_level` int(11) DEFAULT NULL,
+  `password` varchar(250) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+<table name="wo" view="colnames">
+<left>60</left>
+<top>352</top>
+<width>80</width>
+<height>173</height>
+<sql_create_table>CREATE TABLE `wo` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `no_wo` varchar(15) DEFAULT NULL,
+  `tgl_input` date DEFAULT NULL,
+  `tgl_mulai` date DEFAULT NULL,
+  `tgl_selesai` date DEFAULT NULL,
+  `id_divisi` int(11) DEFAULT NULL,
+  `id_pic` int(11) DEFAULT NULL,
+  `deskripsi` text DEFAULT NULL,
+  `progress` decimal(20,2) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+<table name="wo_bom" view="colnames">
+<left>246</left>
+<top>244</top>
+<width>95</width>
+<height>135</height>
+<sql_create_table>CREATE TABLE `wo_bom` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_wo` int(11) DEFAULT NULL,
+  `id_bom_detail` int(11) DEFAULT NULL,
+  `qty` int(11) DEFAULT NULL,
+  `standart_cost` decimal(20,2) DEFAULT NULL,
+  `total_cost` decimal(20,2) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_wo` (`id_wo`),
+  KEY `id_bom_detail` (`id_bom_detail`),
+  CONSTRAINT `wo_bom_ibfk_1` FOREIGN KEY (`id_wo`) REFERENCES `wo` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `wo_bom_ibfk_2` FOREIGN KEY (`id_bom_detail`) REFERENCES `bom_detail` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+<table name="wo_bom_pekerjaan" view="colnames">
+<left>419</left>
+<top>389</top>
+<width>115</width>
+<height>135</height>
+<sql_create_table>CREATE TABLE `wo_bom_pekerjaan` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_wo` int(11) DEFAULT NULL,
+  `id_bom_pekerjaan` int(11) DEFAULT NULL,
+  `qty` int(11) DEFAULT NULL,
+  `standart_cost` decimal(20,2) DEFAULT NULL,
+  `total_cost` decimal(20,2) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_wo` (`id_wo`),
+  KEY `id_bom_pekerjaan` (`id_bom_pekerjaan`),
+  CONSTRAINT `wo_bom_pekerjaan_ibfk_1` FOREIGN KEY (`id_wo`) REFERENCES `wo` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `wo_bom_pekerjaan_ibfk_2` FOREIGN KEY (`id_bom_pekerjaan`) REFERENCES `bom_pekerjaan` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+<table name="wo_jobs" view="colnames">
+<left>713</left>
+<top>309</top>
+<width>73</width>
+<height>173</height>
+<sql_create_table>CREATE TABLE `wo_jobs` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_wo` int(11) DEFAULT NULL,
+  `deskripsi` text DEFAULT NULL,
+  `item_not` varchar(20) DEFAULT NULL,
+  `qty` int(11) DEFAULT NULL,
+  `unit` varchar(10) DEFAULT NULL,
+  `totalcost` decimal(20,2) DEFAULT NULL,
+  `so_no` varchar(25) DEFAULT NULL,
+  `finished` tinyint(1) DEFAULT 0,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1</sql_create_table>
+</table>
+</tables>
+</canvas>
+</schemadesigner>
