@@ -15,3 +15,12 @@ Compile Project Adw
 
 [Run]
 Run the adw.exe application
+
+[Screnshoot App]
+![alt Dasboard](https://github.com/Kep1ss/Delphi-PPIC/blob/main/image_2/Dashboard.jpg?raw=true)
+
+![alt DivisionCapaity](https://github.com/Kep1ss/Delphi-PPIC/blob/main/image_2/Division%20Capacity%20%20Gauge.jpg?raw=true)
+
+![alt GantChart](https://github.com/Kep1ss/Delphi-PPIC/blob/main/image_2/GantChart.jpg?raw=true)
+
+![alt ProductionPlan](https://github.com/Kep1ss/Delphi-PPIC/blob/main/image_2/Production%20Plan.jpg?raw=true)
