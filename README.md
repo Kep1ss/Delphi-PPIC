@@ -2,19 +2,19 @@
 This application build with delphi Alexandria 10.4. PPIC application is used to monitor the production process of furniture factories. from the process of customer orders, creation of gantt charts, work planning, and input of production results
 
 [Requirement] 
-Delphi Alexandria 10.4
-TMSVCLComponent
-DevExpressComponent
-Fastreort 5.0
-Database MySQL8
+Delphi Alexandria 10.4</br>
+TMSVCLComponent</br>
+DevExpressComponent</br>
+Fastreort 5.0</br>
+Database MySQL8</br>
 
 [Install]
-Import Database Adiwraksa from folder DB.
-Setting Config.ini file in folder Program
-Compile Project Adw 
-
+Import Database Adiwraksa from folder DB.</br>
+Setting Config.ini file in folder Program</br>
+Compile Project Adw </br>
+</br>
 [Run]
-Run the adw.exe application
+Run the adw.exe application</br>
 
 [Screnshoot App]
 ![alt Dasboard](https://github.com/Kep1ss/Delphi-PPIC/blob/main/image_2/Dashboard.jpg?raw=true)
