@@ -7,6 +7,7 @@ TMSVCLComponent</br>
 DevExpressComponent</br>
 Fastreort 5.0</br>
 Database MySQL8</br>
+Database SQLLite3</br>
 
 [Install]
 Import Database Adiwraksa from folder DB.</br>
